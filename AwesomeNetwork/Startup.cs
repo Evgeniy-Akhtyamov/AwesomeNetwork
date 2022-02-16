@@ -1,5 +1,6 @@
 using AutoMapper;
 using AwesomeNetwork.Data;
+using AwesomeNetwork.Extentions;
 using AwesomeNetwork.Models.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,6 +42,8 @@ namespace AwesomeNetwork
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 
+            services.AddUnitOfWork();
+
             services.AddIdentity<User, IdentityRole>(opts => {
                  opts.Password.RequiredLength = 5;
                  opts.Password.RequireNonAlphanumeric = false;
@@ -51,6 +54,7 @@ namespace AwesomeNetwork
                     .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,6 +83,8 @@ namespace AwesomeNetwork
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapRazorPages();
             });
         }
     }
