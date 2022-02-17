@@ -5,7 +5,6 @@
 
 @model AwesomeNetwork.ViewModels.Account.MainViewModel;
 
-
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -25,21 +24,12 @@ else
 
         </div>
 
-
         <div class="main">
-            <partial name="Login" />
-            <partial name="Register" />
+            <partial name="Login"  />
+            <partial name="Register"  />
         </div>
-
 
     </div>
 }
 
-@*@if (User.Identity.IsAuthenticated)
-    {
-        <p>@User.Identity.Name</p>
 
-        <form method="post" asp-controller="AccountManager" asp-action="Logout">
-            <input type="submit" value="Выход" />
-        </form>
-    }*@

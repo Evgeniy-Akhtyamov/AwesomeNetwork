@@ -35,11 +35,7 @@ namespace AwesomeNetwork.Controllers.Account
         {
             return View("Home/Login");
         }
-        //[HttpGet]
-        //public IActionResult Login(string returnUrl = null)
-        //{
-        //    return View(new LoginViewModel { ReturnUrl = returnUrl });
-        //}
+        
 
         [Route("Login")]
         [HttpPost]
@@ -52,16 +48,13 @@ namespace AwesomeNetwork.Controllers.Account
 
                 var result = await _signInManager.PasswordSignInAsync(user.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
-                {
-                    // проверяем, принадлежит ли URL приложению
+                {                    
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
-                        return Redirect(model.ReturnUrl);
-                        //return RedirectToAction("MyPage", "AccountManager");
+                        return Redirect(model.ReturnUrl);                        
                     }
                     else
-                    {
-                        //return RedirectToAction("Index", "Home");
+                    {                        
                         return RedirectToAction("MyPage", "AccountManager");
                     }
                 }
@@ -82,17 +75,7 @@ namespace AwesomeNetwork.Controllers.Account
             return RedirectToAction("Index", "Home");
         }
 
-        //[Route("MyPage")]
-        //[HttpGet]
-        //public IActionResult MyPage()
-        //{
-        //    var user = User;
-
-        //    var result = _userManager.GetUserAsync(user);
-
-        //    return View("User", new UserViewModel(result.Result));
-        //}
-
+        
         [Route("Edit")]
         [HttpGet]
         public IActionResult Edit()
@@ -165,30 +148,7 @@ namespace AwesomeNetwork.Controllers.Account
             return View("UserList", model);
         }
 
-        //[Route("UserList")]
-        //[HttpPost]
-        //public IActionResult UserList(string search)
-        //{
-        //    if (string.IsNullOrEmpty(search)) 
-        //    {
-
-        //        var model = new SearchViewModel                
-        //        {                    
-        //            UserList = _userManager.Users.ToList()
-        //        };
-        //        return View("UserList", model);
-        //    }
-        //    else 
-        //    {
-        //        var model = new SearchViewModel
-        //        {
-        //            UserList = _userManager.Users.AsEnumerable().Where(x => x.GetFullName().ToLower().Contains(search.ToLower())).ToList()
-        //        };
-        //        return View("UserList", model);
-        //    }          
-
-        //}
-
+        
         private async Task<SearchViewModel> CreateSearch(string search)
         {
             List<User> list;
@@ -378,8 +338,6 @@ namespace AwesomeNetwork.Controllers.Account
             };
             return View("Chat", model);
         }
-
-
 
     }
 }

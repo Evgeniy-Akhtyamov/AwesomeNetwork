@@ -44,12 +44,12 @@ namespace AwesomeNetwork.Controllers.Account
             if (ModelState.IsValid)
             {
                 var user = _mapper.Map<User>(model);
-                //User user = new User { Email = model.EmailReg, UserName = model.EmailReg };
+                
                 var result = await _userManager.CreateAsync(user, model.PasswordReg);
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
-                    //return RedirectToAction("Index", "Home");
+                    
                     return RedirectToAction("MyPage", "AccountManager");
                 }
                 else

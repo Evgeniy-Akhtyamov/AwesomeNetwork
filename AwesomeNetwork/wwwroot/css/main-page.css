@@ -12,7 +12,8 @@
 
 .main-img {
     width: 100%;
-    max-width: 500px ;
+    max-width: 500px;
+    margin: 2%;
 }
 
 .row {
@@ -84,7 +85,7 @@
 .center {
     text-align: center;
     align-content: center;
-    margin: 5px;
+    margin: 8px;
 }
 
 .enter_submit {
@@ -146,4 +147,8 @@ input[type="checkbox"].input-validation-error {
 .ava {
     width: 20%;
     max-width: max-content;
+}
+
+.privacy {
+    margin: 3%;    
 }
