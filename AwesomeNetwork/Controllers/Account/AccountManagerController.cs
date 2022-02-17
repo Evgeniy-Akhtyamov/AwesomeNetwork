@@ -154,8 +154,7 @@ namespace AwesomeNetwork.Controllers.Account
                     Users = _userManager.Users.AsEnumerable().Where(x => x.GetFullName().ToLower().Contains(search.ToLower())).ToList()
                 };
                 return View("Users", model);
-            }
-            //return View("UserList", model);
+            }           
         }
 
         [Route("UserList")]
@@ -296,6 +295,91 @@ namespace AwesomeNetwork.Controllers.Account
             return repository.GetFriendsByUser(user);
         }
 
-        
+        [Route("Chat")]
+        [HttpPost]
+        public async Task<IActionResult> Chat(string id)
+        {
+            var currentuser = User;
+
+            var result = await _userManager.GetUserAsync(currentuser);
+            var friend = await _userManager.FindByIdAsync(id);
+
+            var repository = _unitOfWork.GetRepository<Message>() as MessageRepository;
+
+            var mess = repository.GetMessages(result, friend);
+
+            var model = new ChatViewModel()
+            {
+                You = result,
+                ToWhom = friend,
+                History = mess.OrderBy(x => x.Id).ToList(),
+            };
+            return View("Chat", model);
+        }        
+
+        [Route("Chat")]
+        [HttpGet]
+        public async Task<IActionResult> Chat()
+        {
+
+            var id = Request.Query["id"];
+
+            var model = await GenerateChat(id);
+            return View("Chat", model);
+        }
+
+        private async Task<ChatViewModel> GenerateChat(string id)
+        {
+            var currentuser = User;
+
+            var result = await _userManager.GetUserAsync(currentuser);
+            var friend = await _userManager.FindByIdAsync(id);
+
+            var repository = _unitOfWork.GetRepository<Message>() as MessageRepository;
+
+            var mess = repository.GetMessages(result, friend);
+
+            var model = new ChatViewModel()
+            {
+                You = result,
+                ToWhom = friend,
+                History = mess.OrderBy(x => x.Id).ToList(),
+            };
+
+            return model;
+        }
+
+        [Route("NewMessage")]
+        [HttpPost]
+        public async Task<IActionResult> NewMessage(string id, ChatViewModel chat)
+        {
+            var currentuser = User;
+
+            var result = await _userManager.GetUserAsync(currentuser);
+            var friend = await _userManager.FindByIdAsync(id);
+
+            var repository = _unitOfWork.GetRepository<Message>() as MessageRepository;
+
+            var item = new Message()
+            {
+                Sender = result,
+                Recipient = friend,
+                Text = chat.NewMessage.Text,
+            };
+            repository.Create(item);
+
+            var mess = repository.GetMessages(result, friend);
+
+            var model = new ChatViewModel()
+            {
+                You = result,
+                ToWhom = friend,
+                History = mess.OrderBy(x => x.Id).ToList(),
+            };
+            return View("Chat", model);
+        }
+
+
+
     }
 }

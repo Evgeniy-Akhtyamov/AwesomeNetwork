@@ -44,7 +44,8 @@ namespace AwesomeNetwork
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 
             services.AddUnitOfWork()
-                    .AddCustomRepository<Friend, FriendsRepository>();
+                    .AddCustomRepository<Friend, FriendsRepository>()
+                    .AddCustomRepository<Message, MessageRepository>();
 
             services.AddIdentity<User, IdentityRole>(opts => {
                  opts.Password.RequiredLength = 5;
