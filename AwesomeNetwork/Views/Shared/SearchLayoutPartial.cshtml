@@ -1,6 +1,21 @@
-﻿<div class="righ-align">
-    <form asp-area="" asp-controller="AccountManager" asp-action="UserList" method="get">
-        <i class="fa fa-search"></i>
-        <input type="text" placeholder="Поиск" name="search">
-    </form>
+﻿@using Microsoft.AspNetCore.Identity;
+@using AwesomeNetwork.Models.Users;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<div class="righ-align">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <form asp-area="" asp-controller="AccountManager" asp-action="UserList">
+            <i class="fa fa-search"></i>
+            <input type="text" placeholder="Поиск" name="search">
+        </form>
+    }
+    else
+    {
+        <form asp-area="" asp-controller="AccountManager" asp-action="Users">
+            <i class="fa fa-search"></i>
+            <input type="text" placeholder="Поиск" name="search">
+        </form>
+    }
 </div>
