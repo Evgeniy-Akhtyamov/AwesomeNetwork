@@ -6,9 +6,14 @@
     {
         @foreach (var user in @Model.Users)
         {
-            <div>
+            <div class="mrgn center-align">
+                <img src="@user.Image" class="ava" /> 
+            </div>
+            <div class="mrgn center-align">
+                <label>@user.About</label>
+            </div>
+            <div class="mrgn center-align">
                 <label>@user.GetFullName()</label>
-                
             </div>
         }
     }

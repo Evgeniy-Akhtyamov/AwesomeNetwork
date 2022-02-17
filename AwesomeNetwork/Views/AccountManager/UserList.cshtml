@@ -5,8 +5,14 @@
     @if (Model.UserList.Count != 0)
     {
         @foreach (var user in @Model.UserList)
-        {            
-            <div>
+        {
+            <div class="mrgn center-align">
+                <img src="@user.Image" class="ava" />
+            </div>
+            <div class="mrgn center-align">
+                <label>@user.About</label>
+            </div>
+            <div class="mrgn center-align">
                 <label>@user.GetFullName()</label>
                 @if (!@user.IsFriendWithCurrent)
                 {

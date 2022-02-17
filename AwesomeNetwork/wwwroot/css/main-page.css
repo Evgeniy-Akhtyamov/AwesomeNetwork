@@ -24,7 +24,7 @@
 }
 
 .footer {
-    height: 30px;/*added*/
+    height: 30px;
     padding: 20px;
     text-align: center;
     background-color: #edeef0;
@@ -39,7 +39,7 @@
 
 .background-main {
     background-color: #edeef0;
-    padding-bottom: 2px; /*added*/
+    padding-bottom: 2px; 
 }
 
 .background-white {
@@ -100,7 +100,7 @@
 
 .text-size_12 {
     font-size: 15px;
-    text-align: center; /*added*/
+    text-align: center; 
 }
 
 .field-validation-error {
